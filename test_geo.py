@@ -1,4 +1,4 @@
-from .floodsystem.geo import *
+from floodsystem.geo import *
 
 """Unit test for the geo module"""
 
