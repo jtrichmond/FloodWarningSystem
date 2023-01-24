@@ -76,5 +76,9 @@ class MonitoringStation:
         """returns the closest town to the station"""
         return self._town
 
+    @property
+    def latest_level(self): #unsure of type
+        return self._latest_level
+
     
 

@@ -8,7 +8,6 @@ geographical data.
 
 from .utils import sorted_by_key  # noqa
 from .station import MonitoringStation
-from math import sqrt # for distances
 from haversine import haversine # need to install locally.
 
 def stations_by_distance(stations: list[MonitoringStation], p: tuple[float, float]) -> list[tuple[MonitoringStation, float]]:
