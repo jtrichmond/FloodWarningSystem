@@ -1,4 +1,4 @@
 {
   "TestFramework": "Pytest",
-  "Interpreter": "Global|ContinuumAnalytics|Anaconda39-64"
+  "Interpreter": "CondaEnv|CondaEnv|FloodWarningSystem"
 }
