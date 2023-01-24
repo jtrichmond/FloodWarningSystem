@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
     "\\floodsystem"
   ],
-  "SelectedNode": "\\test_station.py",
+  "SelectedNode": "\\.github\\workflows\\pythonapp.yml",
   "PreviewInSolutionExplorer": false
 }
