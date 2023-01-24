@@ -18,11 +18,10 @@ def stations_by_distance(stations: list[MonitoringStation], p: tuple[float, floa
     station_distance_list = []
     for station in stations:
         #Create tuple
-        coord = station.get_coord()
-        distance = distance_between_coords(coord, p)
+        distance = distance_between_coords(station.coord, p)
         station_distance_list.append((station, distance))
 
-    sorted_by_key(station_distance_list, 1)
+    station_distance_list = sorted_by_key(station_distance_list, 1)
     return station_distance_list
 
 def distance_between_coords(p1: tuple[float, float], p2: tuple[float, float]) -> float:
