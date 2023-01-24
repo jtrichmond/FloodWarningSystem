@@ -41,6 +41,7 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
 
+    #all read only other than latest level
     @property
     def station_id(self) -> str:
         """returns station id"""
@@ -77,8 +78,15 @@ class MonitoringStation:
         return self._town
 
     @property
-    def latest_level(self): #unsure of type
+    def latest_level(self): #unsure of type, assuming int or float when not NoneType
         return self._latest_level
+
+    @latest_level.setter
+    def latest_level(self, value):
+        if not isinstance(value, (None, int, float)):
+            raise TypeError(str(value) + " was not an integer, float, or NoneType")
+        else:
+            self._latest_level = value
 
     
 
