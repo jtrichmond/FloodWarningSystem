@@ -7,6 +7,9 @@ for manipulating/modifying station data
 """
 
 
+from types import NoneType
+
+
 class MonitoringStation:
     """This class represents a river level monitoring station"""
     #Changed to add property decorators for extension task. Effectively read only, unless setter methods added
@@ -41,6 +44,7 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
 
+    #all read only other than latest level
     @property
     def station_id(self) -> str:
         """returns station id"""
@@ -77,8 +81,15 @@ class MonitoringStation:
         return self._town
 
     @property
-    def latest_level(self): #unsure of type
+    def latest_level(self): #unsure of type, assuming int or float when not NoneType
         return self._latest_level
+
+    @latest_level.setter
+    def latest_level(self, value):
+        if not isinstance(value, (NoneType, int, float)):
+            raise TypeError(str(value) + " was not an integer, float, or NoneType")
+        else:
+            self._latest_level = value
 
     
 
