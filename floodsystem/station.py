@@ -5,9 +5,7 @@
 for manipulating/modifying station data
 
 """
-
-
-from types import NoneType
+from operator import methodcaller # for inconsistent_typical_range_stations
 
 
 class MonitoringStation:
@@ -44,7 +42,7 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
 
-    #all read only other than latest level
+    #all read only other than measure id and latest level
     @property
     def station_id(self) -> str:
         """returns station id"""
@@ -86,10 +84,22 @@ class MonitoringStation:
 
     @latest_level.setter
     def latest_level(self, value):
-        if not isinstance(value, (NoneType, int, float)):
-            raise TypeError(str(value) + " was not an integer, float, or NoneType")
+        if not isinstance(value, (None, int, float)):
+            raise TypeError(str(value) + " was not an integer, float, or NoneType, so is not a valid latest_level")
         else:
             self._latest_level = value
 
+
+    def typical_range_consistent(self) -> bool:
+        """Checks the typical high/low range data of the station for consistency 
+        (i.e., that data is available and the high level is greater than the low level).
+        Returns True if the data is consistent"""
+        if self.typical_range is None or self.typical_range[0] > self.typical_range[1]:
+            return False
+        else:
+           return True
+
+def inconsistent_typical_range_stations(stations: list[MonitoringStation]) -> list[MonitoringStation]:
+    return filter(methodcaller("typical_range_consistent"), stations)
     
 
