@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, run tests and lint
 # with a single version of Python For more information see:
-# edited to include haversine
+# edited to include haversine, operator in import
 # https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
 name: CUED Flood Warning CI
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 matplotlib pytest requests haversine
+          pip install flake8 matplotlib pytest requests haversine operator
 
       - name: Lint with flake8 (non-blocking)
         run: flake8 --exit-zero --statistics *.py
@@ -32,6 +32,8 @@ jobs:
       - name: Run Deliverable 1 code
         run: |
           python Task1A.py
+          python Task1B.py
+          python Task1C.py
 
       - name: Run Deliverable 2 code
         run: |
