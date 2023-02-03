@@ -42,8 +42,9 @@ def test_stations_by_river():
     assert len(sample_rivers_with_station) == 3
 
     #Check correct result is returned for sample data for second function
-    assert "Surfleet Sluice" in stations_by_river(stations)["River Glen"]
-    assert "Bourton Dickler" in stations_by_river(stations)["River Dikler"]
+    #Changed this part of the test, generator around function call
+    assert "Surfleet Sluice" in [station.name for station in stations_by_river(stations)["River Glen"]]
+    assert "Bourton Dickler" in [station.name for station in stations_by_river(stations)["River Dikler"]]
 
     #Check lengths of returned lists is correct
     assert len(stations_by_river(stations)["River Parrett"]) == 1

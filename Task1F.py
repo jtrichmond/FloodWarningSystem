@@ -3,7 +3,7 @@ from floodsystem.stationdata import build_station_list
 from floodsystem.utils import sorted_by_property
 
 def run():
-    """Requirements for Task 1F"""s
+    """Requirements for Task 1F"""
     stations = build_station_list()
     inconsistent = inconsistent_typical_range_stations(stations)
     inconsistent = sorted_by_property(inconsistent, "name")

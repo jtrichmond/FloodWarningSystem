@@ -7,7 +7,7 @@ geographical data.
 """
 
 from math import trunc
-from .utils import sorted_by_key  # noqa
+from .utils import sorted_by_key, sorted_by_property  # noqa
 from .station import MonitoringStation
 from haversine import haversine # added to pythonapp.yml as dependency
 
@@ -50,7 +50,7 @@ def stations_within_radius(stations: list[MonitoringStation], centre: tuple[floa
 
 
 
-def rivers_with_station(stations: list[MonitoringStation]):
+def rivers_with_station(stations: list[MonitoringStation]) -> set:
     """Returns a set of rivers with monitoring stations"""
     
     #Create empty set
@@ -65,24 +65,37 @@ def rivers_with_station(stations: list[MonitoringStation]):
 
 
 
-def stations_on_given_river(river_name, stations: list[MonitoringStation]):
-    """Creates a list of all the stations on a given river"""
+def stations_on_given_river(river_name: str, stations: list[MonitoringStation]) -> list[MonitoringStation]:
+    """Creates a list of all the stations on a given river
+    returns station objects
+    list sorted alphabetically by station name"""
     
     #Create empty list
     list_of_required_stations = []
 
     #Add all stations from given river to the list
-    for station in stations:
+    #Changed this one: task 1D requires mapping river names to station objects
+    # originally, this only returned the station names. Original code commented out.
+    """for station in stations:
         if station.river == river_name:
             list_of_required_stations.append(station.name)
 
+
     #Return the sorted list
-    return sorted(list_of_required_stations)
+    return sorted(list_of_required_stations)"""
+    list_of_required_stations = list(filter(lambda station: station.river == river_name, stations))
+    return sorted_by_property(list_of_required_stations, "name")
 
 
-def stations_by_river(stations: list[MonitoringStation]):
+
+def stations_by_river(stations: list[MonitoringStation]) -> dict:
     """Returns a dictionary that maps river names to a list of station objects on that river"""
 
+    #When testing original version, it ran very slowly
+    #The same river would be searched for multiple times, as it went through each station rather than each river
+    #Also, only returned station names, not objects as required (see above)
+    #original code commented
+    """
     #Create empty dictionary
     dict_of_stations_by_river = {}
 
@@ -91,9 +104,14 @@ def stations_by_river(stations: list[MonitoringStation]):
         dict_of_stations_by_river[station.river] = stations_on_given_river(station.river, stations)
 
     #Returns the key-value pair for a required river
+    return dict_of_stations_by_river"""
+
+    dict_of_stations_by_river = {}
+    list_of_rivers = list(rivers_with_station(stations))
+    for river in list_of_rivers:
+        dict_of_stations_by_river[river] = stations_on_given_river(river, stations)
+
     return dict_of_stations_by_river
-
-
 
 def sum_station_number(river_name, stations: list[MonitoringStation]):
     """Sums number of stations on a required river"""
