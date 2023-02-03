@@ -130,7 +130,5 @@ def rivers_by_station_number(stations: list[MonitoringStation], N):
     while flag == False and N < len(rivers_with_station(stations)):
         if list_rivers_by_station_number[N-1][1] == list_rivers_by_station_number[N][1]:
             N += 1
-            
-        
     
     return list_rivers_by_station_number[:N]
