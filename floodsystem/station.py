@@ -100,9 +100,9 @@ class MonitoringStation:
            return True
 
 def inconsistent_typical_range_stations(stations: list[MonitoringStation]) -> list[MonitoringStation]:
+    """From a list of MonitoringStations, returns a list of stations where the typical range is inconsistent, such as it being None
+    or the low-level being greater than the high level"""
     consistent =  list(filter(methodcaller("typical_range_consistent"), stations))
-    #remove later
     inconsistent =  list(filter(lambda x: x not in consistent, stations))
-    #print(inconsistent)
     return inconsistent
     

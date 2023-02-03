@@ -1,6 +1,7 @@
 from floodsystem.station import MonitoringStation
 
 def sample_stations():
+    """Creates a list of stations for test. All are valid"""
     s_id = "http://environment.data.gov.uk/flood-monitoring/id/stations/1029TH"
     m_id = "http://environment.data.gov.uk/flood-monitoring/id/measures/1029TH-level-stage-i-15_min-mASD"
     label = "Bourton Dickler"
@@ -40,5 +41,20 @@ def sample_stations():
 
     return [s1,s2,s3,s4]
 
+def create_invalid_typical_range_stations() -> list[MonitoringStation]:
+    """Creates a list containing 2 stations with invalid ranges"""
+    # Create a station with inconsistent level data
+    s_id = "test-s-id"
+    m_id = "test-m-id"
+    label = "some station"
+    coord = (-2.0, 4.0)
+    trange = (10,0)
+    river = "River X"
+    town = "My Town"
+    s1 = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
+    s2 = MonitoringStation(s_id, m_id, label, coord, None, river, town)
+    return [s1, s2]
+
 if __name__ == "__main__":
     print(sample_stations())
+    print(create_invalid_typical_range_stations())

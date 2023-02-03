@@ -2,11 +2,12 @@ from floodsystem.station import inconsistent_typical_range_stations
 from floodsystem.stationdata import build_station_list
 from floodsystem.utils import sorted_by_property
 
-def run(): # this is wrong
+def run():
+    """Requirements for Task 1F"""s
     stations = build_station_list()
     inconsistent = inconsistent_typical_range_stations(stations)
     inconsistent = sorted_by_property(inconsistent, "name")
-    names = [(station.name, station.typical_range) for station in inconsistent] # change to remove range
+    names = [station.name for station in inconsistent]
     
     print(names)
 
