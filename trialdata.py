@@ -31,4 +31,5 @@ def sample_stations():
 
     return ([s1,s2,s3])
 
-print(sample_stations())
+if __name__ == "__main__":
+    print(sample_stations())
