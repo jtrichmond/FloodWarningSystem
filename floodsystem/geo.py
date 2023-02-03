@@ -48,3 +48,79 @@ def stations_within_radius(stations: list[MonitoringStation], centre: tuple[floa
 
     return [station_distance_list[i][0] for i in range(index_of_furthest_in_range + 1)]
 
+
+
+def rivers_with_station(stations: list[MonitoringStation]):
+    "Returns a set of rives with monitoring stations"
+    #Create empty set
+    set_of_rivers_with_station = set()
+    
+    "Add all rivers with stations to the set"
+    for station in stations:
+        set_of_rivers_with_station.add(station.river)
+
+    "Return completed set"
+    return set_of_rivers_with_station
+
+
+
+def stations_on_given_river(river_name, stations: list[MonitoringStation]):
+    "Creates a list of all the stations on a given river"
+    
+    #Create empty list
+    list_of_required_stations = []
+
+    "Add all stations from given river to the list"
+    for station in stations:
+        if station.river == river_name:
+            list_of_required_stations.append(station.name)
+
+    "Return the sorted list"
+    return sorted(list_of_required_stations)
+
+
+def stations_by_river(stations: list[MonitoringStation]):
+    "Returns a dictionary that maps river names to a list of station objects on that river"
+
+    #Create empty dictionary
+    dict_of_stations_by_river = {}
+
+    "Assigns river name (key) to a list of stations on that river (value)"
+    for station in stations:
+        dict_of_stations_by_river[station.river] = stations_on_given_river(station.river, stations)
+
+    "Returns the key-value pair for a required river"
+    return dict_of_stations_by_river
+
+
+
+def sum_station_number(river_name, stations: list[MonitoringStation]):
+    "Sums number of stations on a required river"
+
+    "Create a variable, number of stations, value 0"
+    number_of_stations = 0
+
+    "Count number of stations on required river"
+    for station in stations:
+        if station.river == river_name:
+            number_of_stations += 1
+
+    "Returns number of stations on required river"
+    return number_of_stations
+
+
+def rivers_by_station_number(stations: list[MonitoringStation], N):
+    "Returns a list of (river name, number of stations) tuples, sorted by number of stations"
+     
+    "Create empty list"
+    list_rivers_by_station_number = []
+
+    "Adds tuples of (river name, number of stations) to list for every river"
+    for river in rivers_with_station(stations):
+        list_rivers_by_station_number.append((river, sum_station_number(river, stations)))
+
+    "Sorts list of tuples by their second element, in reverse order"
+    list_rivers_by_station_number.sort(key=lambda a:a[1], reverse = True)
+
+    "Returns list of tuples, up to the value N"
+    return list_rivers_by_station_number[:N]
