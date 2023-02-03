@@ -109,6 +109,7 @@ def stations_by_river(stations: list[MonitoringStation]) -> dict:
     dict_of_stations_by_river = {}
     list_of_rivers = list(rivers_with_station(stations))
     for river in list_of_rivers:
+    #something is up here: VS won't indent when I hit enter.
         dict_of_stations_by_river[river] = stations_on_given_river(river, stations)
 
     return dict_of_stations_by_river
