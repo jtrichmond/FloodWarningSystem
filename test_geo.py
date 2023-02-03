@@ -30,10 +30,23 @@ def test_stations_within_range():
         assert station in stations
         assert distance_between_coords(station.coord, point) <= 10
 
-def test_rivers_with_station():
+def test_stations_by_river():
     stations = sample_stations()
-    sample_rivers_with_station = 
-    assert 
+    
+    sample_rivers_with_station = rivers_with_station(stations)
+    assert "River Parrett" in sample_rivers_with_station 
+    assert "River Glen" in sample_rivers_with_station
+    assert "River Dikler" in sample_rivers_with_station
+    assert len(sample_rivers_with_station) == 3
+
+    sample_stations_by_river = stations_by_river(stations)
+    assert "Surfleet Sluice" in stations_by_river(stations)["River Glen"]
+    assert "Bourton Dickler" in stations_by_river(stations)["River Dikler"]
+    assert len(stations_by_river(stations)["River Dikler"]) == 1
 
 
+def test_
 
+
+if __name__ == "__main__":
+    test_stations_by_river()

@@ -30,5 +30,3 @@ def sample_stations():
     s3 = MonitoringStation(s_id3, m_id3, label3, coord3, trange3, river3, town3)
 
     return ([s1,s2,s3])
-
-print(sample_stations())
