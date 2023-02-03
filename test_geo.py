@@ -59,9 +59,19 @@ def test_rivers_by_station_number():
     assert sum_station_number("River Glen", stations) == 2
     assert sum_station_number("River Parrett", stations) == 1
 
-    #print(rivers_by_station_number(stations, 1))
+    #Check length = 1 for N = 1
+    assert len(rivers_by_station_number(stations, 1)) == 1
+
+    #Check length = 3 for N 2
+    assert len(rivers_by_station_number(stations, 2)) == 3
+
+    #Check error is raised for N > 3
+    #len(rivers_by_station_number(stations, 5))
     
 
 if __name__ == "__main__":
+    test_distance_between_coords()
+    test_stations_by_distance()
+    test_stations_within_range
     test_stations_by_river()
     test_rivers_by_station_number()
