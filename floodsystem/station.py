@@ -84,7 +84,7 @@ class MonitoringStation:
 
     @latest_level.setter
     def latest_level(self, value):
-        if not isinstance(value, (None, int, float)):
+        if not (isinstance(value, (int, float)) or value == None):
             raise TypeError(str(value) + " was not an integer, float, or NoneType, so is not a valid latest_level")
         else:
             self._latest_level = value
