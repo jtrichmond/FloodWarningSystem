@@ -30,10 +30,38 @@ def test_stations_within_range():
         assert station in stations
         assert distance_between_coords(station.coord, point) <= 10
 
-def test_rivers_with_station():
+def test_stations_by_river():
     stations = sample_stations()
-    sample_rivers_with_station = 
-    assert 
+    
+    #Check correct result is returned for sample data for first function
+    sample_rivers_with_station = rivers_with_station(stations)
+    assert "River Parrett" in sample_rivers_with_station 
+    assert "River Glen" in sample_rivers_with_station
+    assert "River Dikler" in sample_rivers_with_station
+    assert len(sample_rivers_with_station) == 3
+
+    #Check correct result is returned for sample data for second function
+    assert "Surfleet Sluice" in stations_by_river(stations)["River Glen"]
+    assert "Bourton Dickler" in stations_by_river(stations)["River Dikler"]
+
+    #Check lengths of returned lists is correct
+    assert len(stations_by_river(stations)["River Parrett"]) == 1
+    assert len(stations_by_river(stations)["River Glen"]) == 2
 
 
 
+def test_rivers_by_station_number():
+    stations = sample_stations()
+
+    #Check an integer is returned for first function
+    assert isinstance(sum_station_number("River Glen", stations), int) == True
+    assert isinstance(sum_station_number("River Dikler", stations), int) == True
+    assert sum_station_number("River Glen", stations) == 2
+    assert sum_station_number("River Parrett", stations) == 1
+
+    #print(rivers_by_station_number(stations, 1))
+    
+
+if __name__ == "__main__":
+    test_stations_by_river()
+    test_rivers_by_station_number()

@@ -112,6 +112,9 @@ def sum_station_number(river_name, stations: list[MonitoringStation]):
 def rivers_by_station_number(stations: list[MonitoringStation], N):
     "Returns a list of (river name, number of stations) tuples, sorted by number of stations"
      
+    if N > len(rivers_with_station(stations)): 
+        raise Exception("N is greater than number of stations")
+
     "Create empty list"
     list_rivers_by_station_number = []
 
@@ -122,5 +125,11 @@ def rivers_by_station_number(stations: list[MonitoringStation], N):
     "Sorts list of tuples by their second element, in reverse order"
     list_rivers_by_station_number.sort(key=lambda a:a[1], reverse = True)
 
-    "Returns list of tuples, up to the value N"
+
+    flag = False
+    while flag == False and N < len(rivers_with_station(stations)):
+        if list_rivers_by_station_number[N-1][1] == list_rivers_by_station_number[N][1]:
+            N += 1
+        else: flag = True
+    
     return list_rivers_by_station_number[:N]
