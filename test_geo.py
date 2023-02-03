@@ -59,7 +59,7 @@ def test_rivers_by_station_number():
     assert sum_station_number("River Glen", stations) == 2
     assert sum_station_number("River Parrett", stations) == 1
 
-    print(rivers_by_station_number)
+    #print(rivers_by_station_number(stations, 1))
     
 
 if __name__ == "__main__":
