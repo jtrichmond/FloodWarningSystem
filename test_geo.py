@@ -1,6 +1,7 @@
 from floodsystem.geo import *
 from floodsystem.stationdata import build_station_list
 from trialdata import sample_stations
+import pytest
 
 """Unit test for the geo module"""
 
@@ -65,8 +66,14 @@ def test_rivers_by_station_number():
     #Check length = 3 for N 2
     assert len(rivers_by_station_number(stations, 2)) == 3
 
-    #Check error is raised for N > 3
-    #len(rivers_by_station_number(stations, 5))
+    #Check than an N greater than the number of stations raises an error
+    with pytest.raises(Exception):
+        rivers_by_station_number(stations, 10)
+
+    #Check it is ordered correctly
+    assert rivers_by_station_number(stations, 3)[0][1] == 2
+    assert rivers_by_station_number(stations, 3)[1][1] == 1
+    assert rivers_by_station_number(stations, 3)[2][1] == 1
     
 
 if __name__ == "__main__":
