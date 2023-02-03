@@ -13,7 +13,6 @@ def run():
     print(stations_by_river(stations)["River Aire"])
     print(stations_by_river(stations)["River Cam"])
     print(stations_by_river(stations)["River Thames"])
-    print(stations_by_river(stations)["River Glen"])
 
 if __name__ == "__main__":
     run()

@@ -122,5 +122,13 @@ def rivers_by_station_number(stations: list[MonitoringStation], N):
     "Sorts list of tuples by their second element, in reverse order"
     list_rivers_by_station_number.sort(key=lambda a:a[1], reverse = True)
 
-    "Returns list of tuples, up to the value N"
-    return list_rivers_by_station_number[:N]
+
+    flag = False
+    while flag == False:
+        if list_rivers_by_station_number[N-1][1] == list_rivers_by_station_number[N][1]:
+            N += 1
+        
+        else:
+            "Returns list of tuples, up to the value N"
+            flag = True
+            return list_rivers_by_station_number[:N]
