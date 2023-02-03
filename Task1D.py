@@ -1,9 +1,10 @@
-def run():
-    from floodsystem.geo import rivers_with_station
-    from floodsystem.geo import stations_by_river
-    from floodsystem.geo import stations_on_given_river
-    from floodsystem.stationdata import build_station_list
+from floodsystem.geo import rivers_with_station
+from floodsystem.geo import stations_by_river
+from floodsystem.geo import stations_on_given_river
+from floodsystem.stationdata import build_station_list
 
+def run():
+    """Requirements for Task 1D"""
     stations = build_station_list()
 
     print(str(len(rivers_with_station(stations))) + " stations. First 10 - " 
