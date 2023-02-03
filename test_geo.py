@@ -1,5 +1,6 @@
 from floodsystem.geo import *
 from floodsystem.stationdata import build_station_list
+from trialdata import sample_stations
 
 """Unit test for the geo module"""
 
@@ -28,6 +29,11 @@ def test_stations_within_range():
     for station in stations_near:
         assert station in stations
         assert distance_between_coords(station.coord, point) <= 10
+
+def test_rivers_with_station():
+    stations = sample_stations()
+    sample_rivers_with_station = 
+    assert 
 
 
 
