@@ -72,6 +72,7 @@ def test_rivers_by_station_number():
 
     #Check it is ordered correctly
     assert rivers_by_station_number(stations, 3)[0][1] == 2
+    assert rivers_by_station_number(stations, 3)[0][0] == "River Glen"
     assert rivers_by_station_number(stations, 3)[1][1] == 1
     assert rivers_by_station_number(stations, 3)[2][1] == 1
     
