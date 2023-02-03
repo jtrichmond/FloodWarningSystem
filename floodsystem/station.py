@@ -26,7 +26,7 @@ class MonitoringStation:
             self._name = label[0]
 
         self._coord = coord
-        self._typical_range = typical_range
+        self._typical_range = typical_range # should be (low, high) if data is correct
         self._river = river
         self._town = town
 
@@ -42,7 +42,7 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
 
-    #all read only other than measure id and latest level
+    #all read only other than latest level
     @property
     def station_id(self) -> str:
         """returns station id"""
@@ -100,6 +100,9 @@ class MonitoringStation:
            return True
 
 def inconsistent_typical_range_stations(stations: list[MonitoringStation]) -> list[MonitoringStation]:
-    return filter(methodcaller("typical_range_consistent"), stations)
+    consistent =  list(filter(methodcaller("typical_range_consistent"), stations))
+    #remove later
+    inconsistent =  list(filter(lambda x: x not in consistent, stations))
+    #print(inconsistent)
+    return inconsistent
     
-

@@ -38,4 +38,5 @@ def sample_stations():
     town4 = "My Town"
     s4 = MonitoringStation(s_id4, m_id4, label4, coord4, trange4, river4, town4)
 
-    return ([s1,s2,s3,s4])
+if __name__ == "__main__":
+    print(sample_stations())
