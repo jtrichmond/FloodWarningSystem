@@ -1,5 +1,12 @@
 from .station import MonitoringStation
-from floodsystem.stationdata import update_water_levels
+from .stationdata import update_water_levels
+
+
+def stations_level_over_threshold(stations: list[MonitoringStation], tol: float) -> list[tuple[MonitoringStation, float]]:
+    """Given a list of monitoring stations and a relative water level fraction (tol), 
+    returns a list of tuples containing MonitoringStation objects and their corresponding relative water levels that exceed or equal the tolerance value"""
+    stations_over_tol = list[filter(lambda x: x.relative_water_level() >= tol, stations)]
+    return [(station, station.relative_water_level()) for station in stations_over_tol]
 
 def stations_highest_rel_level(stations, N):
     """returns a list of the N stations (objects) at which the water level, 
