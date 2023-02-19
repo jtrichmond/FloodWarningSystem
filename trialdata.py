@@ -55,6 +55,21 @@ def create_invalid_typical_range_stations() -> list[MonitoringStation]:
     s2 = MonitoringStation(s_id, m_id, label, coord, None, river, town)
     return [s1, s2]
 
+def create_invalid_relative_level_stations() -> list[MonitoringStation]:
+    """Creates a list containing stations where the relative range method should return None"""
+    s_id = ["test-s-id1", "test-s-id2", "test-s-id3"]
+    m_id = ["test-m-id1", "test-m-id2", "test-m-id3"]
+    label = "some station"
+    coord = (-2.0, 4.0)
+    trange = (10,0)
+    river = "River X"
+    town = "My Town"
+    station1 = MonitoringStation(s_id[0], m_id[0], label, coord, trange, river, town)
+    station2 = MonitoringStation(s_id[1], m_id[1], label, coord, trange, river, town)
+    station3 = MonitoringStation(s_id[2], m_id[2], label, coord, trange, river, town)
+    return [station1, station2, station3]
+
+
 if __name__ == "__main__":
     print(sample_stations())
     print(create_invalid_typical_range_stations())

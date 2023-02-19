@@ -85,10 +85,13 @@ class MonitoringStation:
 
     @latest_level.setter
     def latest_level(self, value):
+        """Sets the value of the latest water level
+        Will fail if the type is incorrect or None
+        Since water levels are measured from an arbitrary fixed reference rather than the ground, negative values are possible"""
         if not (isinstance(value, (int, float)) or value == None):
             raise TypeError(str(value) + " was not an integer, float, or NoneType, so is not a valid latest_level")
         else:
-            self._latest_level = value
+            self._latest_level = value 
 
 
     def typical_range_consistent(self) -> bool:
@@ -105,7 +108,7 @@ class MonitoringStation:
         1.0 corresponds to the high range value, 0.0 corresponds to the low range values.
         The high- and low-range data corresponds to the values that 5% of the water levels were above or below respectively
         Therefore negative values correspond to levels below the typical low range, and values exceeding 1 are when the value is above high range.
-        None will be returned if there is no current level, if the current value is below 0, if there is no typical range data, or if the high and low levels are the same."""
+        None will be returned if there is no current level, if there is no typical range data, or if the high and low levels are the same."""
         if self.typical_range == None:
             return None
         elif self.latest_level == None:
