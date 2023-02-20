@@ -108,8 +108,8 @@ class MonitoringStation:
         1.0 corresponds to the high range value, 0.0 corresponds to the low range values.
         The high- and low-range data corresponds to the values that 5% of the water levels were above or below respectively
         Therefore negative values correspond to levels below the typical low range, and values exceeding 1 are when the value is above high range.
-        None will be returned if there is no current level, if there is no typical range data, or if the high and low levels are the same."""
-        if self.typical_range == None:
+        None will be returned if there is no current level, if the typical range is inconsistent, or if the high and low levels are the same."""
+        if self.typical_range_consistent() == False:
             return None
         elif self.latest_level == None:
             return None

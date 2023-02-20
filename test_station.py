@@ -58,7 +58,14 @@ def test_relative_water_level():
     invalid = create_invalid_relative_level_stations()
     stations = valid + invalid
     for station in stations:
-        pass
+        if __name__ == "__main__":
+                print(station.name, station.relative_water_level())
+        if station in valid and station.latest_level != None:
+            assert station.relative_water_level() == (station.latest_level - station.typical_range[0])/(station.typical_range[1] - station.typical_range[0])
+        else:
+            assert station.relative_water_level() == None
 
 if __name__ == "__main__":
+    test_create_monitoring_station()
     test_typical_range_consistent()
+    test_relative_water_level()

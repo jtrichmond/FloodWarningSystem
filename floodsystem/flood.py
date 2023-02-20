@@ -6,8 +6,17 @@ from .utils import sorted_by_key
 def stations_level_over_threshold(stations: list[MonitoringStation], tol: float) -> list[tuple[MonitoringStation, float]]:
     """Given a list of monitoring stations and a relative water level fraction (tol), 
     returns a list of tuples containing MonitoringStation objects and their corresponding relative water levels that exceed or equal the tolerance value"""
-    stations_over_tol = list[filter(lambda x: x.relative_water_level() >= tol, stations)]
+    def over_tol(station: MonitoringStation, tol: float) -> bool:
+        if station.relative_water_level() is not None:
+            return station.relative_water_level() >= tol
+        else:
+            return False
+    
+    #filter the list for stations that have a relative water level over the tolerance. Convert the resulting filter object to a list
+    stations_over_tol = list(filter(lambda x: over_tol(x, tol), stations))
+    #Generate station: relative level pairs
     stations_over_tol =  [(station, station.relative_water_level()) for station in stations_over_tol]
+    #Sort in descending order of relative level and return
     return sorted_by_key(stations_over_tol, 1, True)
 
 def stations_highest_rel_level(stations, N):
