@@ -11,7 +11,7 @@ def stations_level_over_threshold(stations: list[MonitoringStation], tol: float)
             return station.relative_water_level() >= tol
         else:
             return False
-    
+    update_water_levels(stations) # Updates the water levels; build_station_list does not assign any latest_levels
     #filter the list for stations that have a relative water level over the tolerance. Convert the resulting filter object to a list
     stations_over_tol = list(filter(lambda x: over_tol(x, tol), stations))
     #Generate station: relative level pairs
