@@ -17,7 +17,8 @@ def plot_water_levels(station: MonitoringStation, dates: list[datetime], levels:
 
 
 def plot_water_level_with_fit(station: MonitoringStation, dates: list[datetime], levels: list[float], p: int):
-    """Plots the actual water level data for the station with the corresponding least-squares fit polynomial model of degree p."""
+    """Plots the actual water level data for the station with the corresponding least-squares fit polynomial model of degree p.
+    Will compute the polynomial model, which will have a shift in the dates to minimise floating point errors for large numbers"""
     poly, shift = polyfit(dates, levels, p)
     model_levels = convert_polynomial_to_level_data(dates, poly, shift)
     plt.plot(dates, model_levels, label="least squares regression model")
