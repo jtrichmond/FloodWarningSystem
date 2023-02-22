@@ -6,15 +6,16 @@ from floodsystem.datafetcher import fetch_measure_levels
 from datetime import timedelta
 
 def run():
+    """Functionality for 2F"""
     stations = build_station_list()
     update_water_levels(stations)
     N = 5
-    dt = timedelta(days=10) # time difference of 10 days
+    p = 4
+    dt = timedelta(days=2) # time difference of 2 days
     plot_stations = stations_highest_rel_level(stations, N)
     for station in plot_stations:
         dates, levels = fetch_measure_levels(station.measure_id, dt)
-        plot_water_levels(station, dates, levels)
-
+        plot_water_level_with_fit(station, dates, levels, p)
 
 if __name__ == "__main__":
     run()
