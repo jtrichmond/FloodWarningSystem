@@ -1,6 +1,7 @@
 from floodsystem.flood import *
 from floodsystem.station import *
 from trialdata import sample_stations, create_stations_level_over_threshold_data
+import pytest
 
 def test_stations_level_over_threshold():
     stations = create_stations_level_over_threshold_data()
@@ -37,6 +38,30 @@ def test_stations_level_over_threshold():
         for i in range(len(stations_over_tol) -1):
             assert stations_over_tol[i][1] >= stations_over_tol[i+1][1] # Checks sorted in reverse order
 
+
+def test_stations_highest_rel_level():
+    stations = sample_stations()
+
+    #Check that an error is raised if N is greater than number of stations
+    with pytest.raises(Exception):
+        stations_highest_rel_level(stations, 10)
+
+    #Build list of stations with highest rel levels
+    list_stations_highest_rel_level = []
+    for station in stations_highest_rel_level(stations, 4):
+        list_stations_highest_rel_level.append(station.name)
+        
+    #Check the list is ordered correctly
+    assert list_stations_highest_rel_level[0] == "Surfleet Sluice"
+    assert list_stations_highest_rel_level[1] == "Bourton Dickler"
+    assert list_stations_highest_rel_level[2] == "Gaw Bridge"
+
+    #Check the list is of the correct length
+    assert len(list_stations_highest_rel_level) == 4
+
+
+
 if __name__ == "__main__":
     test_stations_level_over_threshold()
+    test_stations_highest_rel_level()
     

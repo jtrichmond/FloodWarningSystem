@@ -32,6 +32,7 @@ def sample_stations():
     river3 = "River Parrett"
     town3 = "Kingsbury Episcopi"
     s3 = MonitoringStation(s_id3, m_id3, label3, coord3, trange3, river3, town3)
+    s3.latest_level = 0.9
 
     s_id4 = "test-s-id"
     m_id4 = "test-m-id"
@@ -41,6 +42,7 @@ def sample_stations():
     river4 = "River Glen"
     town4 = "My Town"
     s4 = MonitoringStation(s_id4, m_id4, label4, coord4, trange4, river4, town4)
+    s4.latest_level = 0.8
 
     return [s1,s2,s3,s4]
 
