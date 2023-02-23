@@ -12,8 +12,12 @@ def run():
     dt = timedelta(days=10) # time difference of 10 days
     plot_stations = stations_highest_rel_level(stations, N)
     for station in plot_stations:
-        dates, levels = fetch_measure_levels(station.measure_id, dt)
-        plot_water_levels(station, dates, levels)
+        try:
+            dates, levels = fetch_measure_levels(station.measure_id, dt)
+        except KeyError:
+            print("KeyError: Missing historical data for " + station.name)
+        else:
+            plot_water_levels(station, dates, levels)
 
 
 if __name__ == "__main__":
