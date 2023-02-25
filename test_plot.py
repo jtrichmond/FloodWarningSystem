@@ -50,6 +50,8 @@ def test_plot_water_levels():
             except KeyError:
                 print("KeyError: Missing historical data for " + station.name)
             else:
+                assert type(dates) == list
+                assert type(levels) == list
                 assert len(dates) == len(levels)
 
 if __name__ == "__main__":
