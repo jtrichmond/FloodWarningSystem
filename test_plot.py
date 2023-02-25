@@ -13,46 +13,29 @@ def test_plot_water_levels():
     dt = timedelta(days=10) # time difference of 10 days
     plot_stations = stations_highest_rel_level(stations, 3)
 
-    #Check that error is raised for incorret levels input
-    with pytest.raises(Exception):
-        for station in plot_stations:
-            try:
-                dates, levels = fetch_measure_levels(station.measure_id, dt)
-            except KeyError:
-                print("KeyError: Missing historical data for " + station.name)
-            else:
+    for station in plot_stations:
+        try:
+            dates, levels = fetch_measure_levels(station.measure_id, dt)
+        except KeyError:
+            print("KeyError: Missing historical data for " + station.name)
+        else:
+            #Check that error is raised for incorret levels input
+            with pytest.raises(Exception):
                 plot_water_levels(station, dates, [1,2])
 
-    #Check that error is raised for incorret dates input
-    with pytest.raises(Exception):
-        for station in plot_stations:
-            try:
-                dates, levels = fetch_measure_levels(station.measure_id, dt)
-            except KeyError:
-                print("KeyError: Missing historical data for " + station.name)
-            else:
+            #Check that error is raised for incorret dates input
+            with pytest.raises(Exception):
                 plot_water_levels(station, ["sunset"], levels)
-
-    #Check that error is raised for incorrect station input
-    with pytest.raises(Exception):
-        for station in plot_stations:
-            try:
-                dates, levels = fetch_measure_levels(station.measure_id, dt)
-            except KeyError:
-                print("KeyError: Missing historical data for " + station.name)
-            else:
+            
+            #Check that error is raised for incorrect station input
+            with pytest.raises(Exception):
                 plot_water_levels("Waterloo", dates, levels)
 
-    #Check that len(dates) == len(levels) for each station
-    for station in plot_stations:
-            try:
-                dates, levels = fetch_measure_levels(station.measure_id, dt)
-            except KeyError:
-                print("KeyError: Missing historical data for " + station.name)
-            else:
-                assert type(dates) == list
-                assert type(levels) == list
-                assert len(dates) == len(levels)
+            #Check that len(dates) == len(levels) for each station
+            assert type(dates) == list
+            assert type(levels) == list
+            assert len(dates) == len(levels)
+
 
 
 def test_plot_water_levels_with_fit():
