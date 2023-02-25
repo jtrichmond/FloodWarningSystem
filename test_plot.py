@@ -1,22 +1,47 @@
 from floodsystem.plot import *
 from floodsystem.stationdata import build_station_list, update_water_levels
 from floodsystem.flood import stations_highest_rel_level
+from trialdata import sample_stations
 from floodsystem.datafetcher import fetch_measure_levels
 import pytest
 from datetime import timedelta
 
 def test_plot_water_levels():
-    stations = build_station_list()
+    stations = sample_stations()
     update_water_levels(stations)
     
-    #Check that an error is raised if N is greater than number of stations
+    dt = timedelta(days=10) # time difference of 10 days
+    plot_stations = stations_highest_rel_level(stations, 3)
+
+    #Check that error is raised for incorret levels input
     with pytest.raises(Exception):
-        dt = timedelta(days=10)
-        plot_stations = stations_highest_rel_level(stations, 1000)
         for station in plot_stations:
-            dates, levels = fetch_measure_levels(station.measure_id, dt)
+            try:
+                dates, levels = fetch_measure_levels(station.measure_id, dt)
+            except KeyError:
+                print("KeyError: Missing historical data for " + station.name)
+            else:
+                plot_water_levels(station, dates, [1,2])
 
+    #Check that error is raised for incorret dates input
+    with pytest.raises(Exception):
+        for station in plot_stations:
+            try:
+                dates, levels = fetch_measure_levels(station.measure_id, dt)
+            except KeyError:
+                print("KeyError: Missing historical data for " + station.name)
+            else:
+                plot_water_levels(station, ["sunset"], levels)
 
+    #Check that error is raised for incorrect station input
+    with pytest.raises(Exception):
+        for station in plot_stations:
+            try:
+                dates, levels = fetch_measure_levels(station.measure_id, dt)
+            except KeyError:
+                print("KeyError: Missing historical data for " + station.name)
+            else:
+                plot_water_levels("Waterloo", dates, levels)
 
 if __name__ == "__main__":
     test_plot_water_levels()
