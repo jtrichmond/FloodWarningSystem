@@ -54,5 +54,26 @@ def test_plot_water_levels():
                 assert type(levels) == list
                 assert len(dates) == len(levels)
 
+
+def test_plot_water_levels_with_fit():
+    stations = sample_stations()
+    update_water_levels(stations)
+    
+    dt = timedelta(days=10) # time difference of 10 days
+    plot_stations = stations_highest_rel_level(stations, 3)
+
+    #Check that lenghts of lists to be plotted match up
+    for station in plot_stations:
+            try:
+                dates, levels = fetch_measure_levels(station.measure_id, dt)
+            except KeyError:
+                print("KeyError: Missing historical data for " + station.name)
+            else:
+                poly, shift = polyfit(dates, levels, 3)
+                model_levels = convert_polynomial_to_level_data(dates, poly, shift)
+                assert len(dates) == len(model_levels)
+                assert len(levels) == len(model_levels)
+
 if __name__ == "__main__":
     test_plot_water_levels()
+    test_plot_water_levels_with_fit()
