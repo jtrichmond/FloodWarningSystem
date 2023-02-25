@@ -5,6 +5,7 @@ from trialdata import sample_stations
 from floodsystem.datafetcher import fetch_measure_levels
 import pytest
 from datetime import timedelta
+import numpy
 
 def test_plot_water_levels():
     stations = sample_stations()
@@ -19,6 +20,7 @@ def test_plot_water_levels():
         except KeyError:
             print("KeyError: Missing historical data for " + station.name)
         else:
+
             #Check that error is raised for incorret levels input
             with pytest.raises(Exception):
                 plot_water_levels(station, dates, [1,2])
@@ -32,6 +34,7 @@ def test_plot_water_levels():
                 plot_water_levels("Waterloo", dates, levels)
 
             #Check that len(dates) == len(levels) for each station
+            # and that they are both lists
             assert type(dates) == list
             assert type(levels) == list
             assert len(dates) == len(levels)
@@ -54,17 +57,21 @@ def test_plot_water_levels_with_fit():
             else:
 
                 #Check that lenghts of lists to be plotted match up
+                # and that model_levels is a list
                 poly, shift = polyfit(dates, levels, p)
                 model_levels = convert_polynomial_to_level_data(dates, poly, shift)
                 assert len(dates) == len(model_levels)
                 assert len(levels) == len(model_levels)
+                assert type(model_levels) == list
                
                 #Check that length of polynomial equal p
+                # and that poly is a numpy.poly1d
                 datenums = date2num(dates)
                 shift = datenums[0]
                 p_coeff = np.polyfit(datenums - shift, levels, p)
-                ploy = np.poly1d(p_coeff)
+                poly = np.poly1d(p_coeff)
                 assert len(poly) == p
+                assert type(poly) == numpy.poly1d
 
 if __name__ == "__main__":
     test_plot_water_levels()
