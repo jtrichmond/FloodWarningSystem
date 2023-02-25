@@ -1,5 +1,5 @@
 from floodsystem.plot import *
-from floodsystem.stationdata import build_station_list, update_water_levels
+from floodsystem.stationdata import update_water_levels
 from floodsystem.flood import stations_highest_rel_level
 from trialdata import sample_stations
 from floodsystem.datafetcher import fetch_measure_levels
@@ -42,6 +42,15 @@ def test_plot_water_levels():
                 print("KeyError: Missing historical data for " + station.name)
             else:
                 plot_water_levels("Waterloo", dates, levels)
+
+    #Check that len(dates) == len(levels) for each station
+    for station in plot_stations:
+            try:
+                dates, levels = fetch_measure_levels(station.measure_id, dt)
+            except KeyError:
+                print("KeyError: Missing historical data for " + station.name)
+            else:
+                assert len(dates) == len(levels)
 
 if __name__ == "__main__":
     test_plot_water_levels()
