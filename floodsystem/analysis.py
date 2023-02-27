@@ -6,7 +6,8 @@ import numpy as np
 def polyfit(dates: list[datetime], levels: list[float], p: int) -> tuple[np.poly1d, float]:
     """for given dates and corresponding water levels, determines a least squares fit of a polynomial of degree p to water level data
     Returns a polynomial as a np.poly1d object, and any shifting of the date axis used to minimise floating point errors
-    A subtraction of time as the shift (i.e. reducing the timestamp value) is taken as a positive shift"""
+    A subtraction of time as the shift (i.e. reducing the timestamp value) is taken as a positive shift
+    Assumes the dates are in ascending order, oldest first"""
     #change datetime to float
     datenums = date2num(dates)
     # shift values so that earliest is at 0
